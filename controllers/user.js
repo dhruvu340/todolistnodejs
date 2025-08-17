@@ -2,13 +2,13 @@ const User=require("../models/user");
 const jwt=require("jsonwebtoken");
 
 const handlesignup=async (req,res)=>{
- const {name,email,password}=req.body;
+ const {username,email,password}=req.body;
  try {
     const exist=await User.findOne({email});
     if(exist){
         return res.status(400).json({message:"Email already exist"});
     }
-    const user=new User({name,email,password});
+    const user=new User({username,email,password});
     await user.save();
     const payload = { id: user._id, email: user.email };
 
